@@ -108,6 +108,7 @@ function dyniva_scheduled_updates_form_node_form_alter(&$form, FormStateInterfac
       ':input[name="sticky[value]"]' => ['checked' => true]
     ]
   ];
+
   // Schedule change state
   $typeConfig = \Drupal::service('entity.manager')
     ->getStorage('scheduled_update_type')
@@ -116,7 +117,6 @@ function dyniva_scheduled_updates_form_node_form_alter(&$form, FormStateInterfac
   if(isset($bundles[$entity->bundle()])) {
     /* @var \Drupal\workflows\Entity\Workflow $workflow */
     $workflow = \Drupal::service('content_moderation.moderation_information')->getWorkflowForEntity($entity);
-
     if($workflow) {
       $update = dyniva_scheduled_updates_get_schedule_update($entity->id(), 'scheduled_content_state');
       $options = [];
@@ -160,7 +160,6 @@ function dyniva_scheduled_updates_form_node_form_alter(&$form, FormStateInterfac
           }
         }
       }
-
       if(count($options) > 0) {
         $form['change_state_options'] = [
           '#type' => 'details',
